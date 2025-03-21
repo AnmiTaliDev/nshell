@@ -1,10 +1,11 @@
-C=tcc
+C=gcc
 CFLAGS=-o main.out
 
 all:
-  @echo "Build..."
-  @$(C) $(CFLAGS) main.c
+	@echo "Build..."
+	@$(C) $(CFLAGS) src/main.c
 
 clean:
-  @echo "Clean..."
-  @rm main.out
+	@echo "Clean..."
+	@rm main.out
+
