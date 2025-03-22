@@ -7,5 +7,5 @@ all:
 
 clean:
 	@echo "Clean..."
-	@rm main.out
+	@rm nshell
 
