@@ -1,5 +1,5 @@
 C=gcc
-CFLAGS=-o main.out
+CFLAGS=-o nshell
 
 all:
 	@echo "Build..."
