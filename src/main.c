@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#define MAX_INPUT 64
+#define MAX_INPUT 1488 
 
 void
 parse_input(
