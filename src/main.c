@@ -50,7 +50,8 @@ main()
 	char *username = getlogin ();
 	char host[256];
 	gethostname (host, sizeof (host));
-
+	
+	printf ("NShell v0.2 is a best shell for you NaGNU/Linux system\nMade for NaGNU project\n");
 	while (1)
 	{
 		printf ("%s&%s+>", username, host);
