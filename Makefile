@@ -1,11 +1,12 @@
-C=gcc
+CC=gcc
 CFLAGS=-o nshell
+SRC=src/main.c
+BIN=nshell
 
 all:
-	@echo "Build..."
-	@$(C) $(CFLAGS) src/main.c
+	@echo "Building..."
+	@$(CC) $(CFLAGS) $(SRC) -o $(BIN) -lreadline
 
 clean:
-	@echo "Clean..."
-	@rm nshell
-
+	@echo "Cleaning..."
+	@rm -f $(BIN)
