@@ -1,0 +1,68 @@
+# NaGNU/nshell - Makefile template
+# Developers: ruzen42, mkfs, AnmiTaliDev
+
+# Компилятор и флаги
+CC = gcc
+CFLAGS = -Wall -Wextra -I./include
+LDFLAGS = 
+
+# Конфигурационные параметры
+PREFIX = @PREFIX@
+DEBUG = @DEBUG@
+READLINE = @READLINE@
+COLOR = @COLOR@
+
+# Директории
+SRC_DIR = src
+OBJ_DIR = obj
+BIN_DIR = bin
+INCLUDE_DIR = include
+
+# Исходные файлы и объектные файлы
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+
+# Имя исполняемого файла
+TARGET = $(BIN_DIR)/nshell
+
+# Добавление флагов в зависимости от конфигурации
+ifeq ($(DEBUG),1)
+    CFLAGS += -g -DDEBUG
+endif
+
+ifeq ($(READLINE),1)
+    CFLAGS += -DHAVE_READLINE
+    LDFLAGS += -lreadline
+endif
+
+ifeq ($(COLOR),1)
+    CFLAGS += -DENABLE_COLOR
+endif
+
+# Правила сборки
+.PHONY: all clean install uninstall
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS) | $(BIN_DIR)
+	$(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BIN_DIR) $(OBJ_DIR):
+	mkdir -p $@
+
+install: all
+	install -d $(DESTDIR)$(PREFIX)/bin
+	install -m 755 $(TARGET) $(DESTDIR)$(PREFIX)/bin/nshell
+
+uninstall:
+	rm -f $(DESTDIR)$(PREFIX)/bin/nshell
+
+clean:
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	rm -f config.h Makefile
+
+# Проверка зависимостей
+$(OBJS): $(INCLUDE_DIR)/nshell.h config.h

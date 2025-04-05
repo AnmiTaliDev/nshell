@@ -1,2 +1,1 @@
-# nshell
-NaGNU Shell
+# NaGNU Shell
